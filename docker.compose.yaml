@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:15
+    container_name: db
+    restart: always
+    environment:
+      POSTGRES_USER: meu_usuario
+      POSTGRES_PASSWORD: minha_senha
+      POSTGRES_DB: meu_banco
+    ports:
+      - "5432"
+    volumes:
+      - psql_data:/var/lib/postgresql/data
+
+    backe_end:
+      build: .
+      restart: always
+      container_name: flasck_python
+      ports:
+        - "5015:5000"
+      env_file:
+      - path: .env
+        required: false
+
+volumes:
+  psql_data:
